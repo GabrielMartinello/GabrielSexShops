@@ -13,7 +13,7 @@ export class SupabaseService {
 
     const { data, error } = await this.supabase.storage
       .from(process.env.SUPABASE_BUCKET)
-      .upload(`movies/${Date.now()}_${originalname}`, buffer, {
+      .upload(`products/${Date.now()}_${originalname}`, buffer, {
         upsert: true,
       });
 
