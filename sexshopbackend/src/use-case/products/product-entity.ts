@@ -4,20 +4,22 @@ import {
     Entity,
     IntegerType,
     JoinColumn,
+    JoinTable,
     ManyToMany,
     ManyToOne,
-    PrimaryColumn, 
+    PrimaryGeneratedColumn, 
     UpdateDateColumn 
 } from "typeorm";
 import { ProductBrand } from "../product-brands/product-brand-entity";
-import { ProductCategory } from "../product-category/product-category-entity";
+import { Category } from "../category/category-entity";
+
 
 @Entity("product")
 export class Product {
-    @PrimaryColumn("uuid")
+    @PrimaryGeneratedColumn('uuid')   
     id: string;
 
-    @Column({length: 60, type: "text", nullable: false})
+    @Column({type: "text", nullable: false})
     name: string;
 
     @Column({type: "text", nullable: false})
@@ -29,17 +31,22 @@ export class Product {
     @Column({type: "int"})
     stock: IntegerType;
 
-    @ManyToOne(() => ProductBrand, {eager: true, nullable: false})
-    @JoinColumn({name: "brand_id"})
-    brand_id: ProductBrand;
+    @ManyToMany(() => ProductBrand, {eager: true, nullable: false})
+    @JoinTable({name: "products_brands"})
+    brands: ProductBrand[];
 
-    @ManyToMany(() => ProductCategory, { eager: true })
-    @JoinColumn({name: "procut_category"})
-    type_id: ProductCategory;
+    @ManyToMany(() => Category, { eager: true })
+    @JoinTable({
+        name: "product_category"
+    })
+    categories: Category[];
 
-    @CreateDateColumn({name: "created-at"})
+    @Column({ nullable: false })
+    photo: string;
+
+    @CreateDateColumn({name: "created_at"})
     createdAt: Date;
 
-    @UpdateDateColumn({name: "updated-at"})
+    @UpdateDateColumn({name: "updated_at"})
     updatedAt: Date;
 }

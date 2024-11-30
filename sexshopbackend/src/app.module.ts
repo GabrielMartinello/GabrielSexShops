@@ -2,8 +2,8 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ProductBrandModule } from './use-case/product-brands/product-brand-module';
-import { ProductCategoryModule } from './use-case/product-category/product-category-module';
 import { ProductModule } from './use-case/products/product-module';
+import { CategoryModule } from './use-case/category/category-module';
 
 @Module({
   imports: [
@@ -17,13 +17,11 @@ import { ProductModule } from './use-case/products/product-module';
       database: process.env.DB_NAME,
       username: process.env.DB_USER,
       password: process.env.DB_PASS,
+      synchronize: true,
       autoLoadEntities: true,
-      migrations: [`${__dirname}/migration/*.{ts,js}`],
-      migrationsRun: true,
-      migrationsTableName: 'u4-migration',
     }),
     ProductBrandModule,
-    ProductCategoryModule,
+    CategoryModule,
     ProductModule
   ],
 })

@@ -16,7 +16,7 @@ import { ProductBrandService } from './product-brand-service';
 import { ProductBrand } from './product-brand-entity';
 
   
-  @Controller('categories')
+  @Controller('brands')
   export class ProductBrandController {
     constructor(private service: ProductBrandService) {}
   
@@ -26,7 +26,7 @@ import { ProductBrand } from './product-brand-entity';
     }
   
     @Get(':id')
-    async findById(@Param('id', ParseIntPipe) id: string): Promise<ProductBrand> {
+    async findById(@Param('id', ParseUUIDPipe) id: string): Promise<ProductBrand> {
       const found = await this.service.findById(id);
   
       if (!found) {

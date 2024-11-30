@@ -12,50 +12,49 @@ import {
     Post,
     Put,
   } from '@nestjs/common';
-import { ProductCategory } from './product-category-entity';
-import { ProductCategoryService } from './product-category-service';
-
+import { CategoryService } from './category-service';
+import { Category } from './category-entity';
 
   
   @Controller('categories')
-  export class ProductCategoryController {
-    constructor(private service: ProductCategoryService) {}
+  export class CategoryController {
+    constructor(private service: CategoryService) {}
   
     @Get()
-    findAll(): Promise<ProductCategory[]> {
+    findAll(): Promise<Category[]> {
       return this.service.findAll();
     }
   
     @Get(':id')
-    async findById(@Param('id', ParseIntPipe) id: string): Promise<ProductCategory> {
+    async findById(@Param('id', ParseUUIDPipe) id: string): Promise<Category> {
       const found = await this.service.findById(id);
   
       if (!found) {
-        throw new HttpException('ProductCategory not found', HttpStatus.NOT_FOUND);
+        throw new HttpException('Category not found', HttpStatus.NOT_FOUND);
       }
   
       return found;
     }
   
     @Post()
-    create(@Body() ProductCategory: ProductCategory): Promise<ProductCategory> {
-      return this.service.save(ProductCategory);
+    create(@Body() Category: Category): Promise<Category> {
+      return this.service.save(Category);
     }
   
     @Put(':id')
     async update(
       @Param('id', ParseUUIDPipe) id: string,
-      @Body() ProductCategory: ProductCategory,
-    ): Promise<ProductCategory> {
+      @Body() Category: Category,
+    ): Promise<Category> {
       const found = await this.service.findById(id);
   
       if (!found) {
         throw new HttpException('Brand not found', HttpStatus.NOT_FOUND);
       }
   
-      ProductCategory.id = found.id;
+      Category.id = found.id;
   
-      return this.service.save(ProductCategory);
+      return this.service.save(Category);
     }
   
     @Delete(':id')
@@ -64,7 +63,7 @@ import { ProductCategoryService } from './product-category-service';
       const found = await this.service.findById(id);
   
       if (!found) {
-        throw new HttpException('ProductCategory not found', HttpStatus.NOT_FOUND);
+        throw new HttpException('Category not found', HttpStatus.NOT_FOUND);
       }
     
       return this.service.remove(id);

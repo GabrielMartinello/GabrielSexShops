@@ -6,13 +6,16 @@ import {
     UpdateDateColumn 
 } from "typeorm";
 
-@Entity("brand")
-export class ProductBrand {
+@Entity("categories")
+export class Category {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @Column({type: "text",  nullable: false})
+    @Column({type: "text", nullable: false})
     name: string;
+
+    @Column({type: "text", nullable: false})
+    description: string;
 
     @CreateDateColumn({name: "created_at"})
     createdAt: Date;
