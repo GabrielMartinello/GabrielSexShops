@@ -11,6 +11,9 @@ import { ProductBrandEdit } from "./app/cases/product-brand/edit"
 import ProductLayout from "./app/cases/products/layout"
 import { ProductCreate } from "./app/cases/products/create"
 import { ProductEdit } from "./app/cases/products/edit"
+import UserLayout from "./app/cases/users/layout"
+import { UserCreate } from "./app/cases/users/create"
+import { UserEdit } from "./app/cases/users/edit"
 
 function App() {
 
@@ -31,6 +34,10 @@ function App() {
           <Route path="/products" element={ <ProductLayout /> }>
               <Route path="new" element={<ProductCreate />} />
               <Route path=":id" element={<ProductEdit />} />
+          </Route>
+          <Route path="/users" element={ <UserLayout /> }>
+              <Route path="new" element={<UserCreate />} />
+              <Route path=":id" element={<UserEdit />} />
           </Route>
         </Routes>
         

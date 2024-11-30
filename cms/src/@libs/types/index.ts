@@ -19,3 +19,11 @@
     brands?: IProductBrand[];
     categories?: ICategory[];
   }
+
+  export interface IUser {
+      id?: string;           
+      username: string;      
+      email: string;         
+      password?: string;     
+      isActive: boolean;
+  }
